@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Worker Login Info</title>
+</head>
+<body>
+    <h2>Your Login Info</h2>
+    <p id="info"></p>
+
+    <script>
+        const credentials = [
+            {name: "Herbert", email: "irizapeki862@gmail.com", password: "dnytGqEFU3ITexJ"},
+            {name: "Damon", email: "ozoyesasupi027@gmail.com", password: "CkZMDDf9S8tdVlU"},
+            {name: "Josiah", email: "ubibehuneti02@gmail.com", password: "zdFVqktZAIVT"},
+            {name: "Marion", email: "edufesojo99@gmail.com", password: "aIwDbe2gKjXiHWU"},
+            {name: "Fermin", email: "rufolihe920@gmail.com", password: "2GHnjTYoR3lV"},
+            {name: "Mario", email: "aforajobofa04@gmail.com", password: "KHHIcDsSXAh13"},
+            {name: "Jacqueline", email: "hunafog682@gmail.com", password: "bKGbtBWkQqHQe"},
+            {name: "Waneta", email: "pexawuqiduz11@gmail.com", password: "MURncQJrilP43d8"},
+            {name: "Forest", email: "bubekozip482@gmail.com", password: "46du4u1uNBNk"},
+            {name: "Olimpia", email: "xuxeyojey764@gmail.com", password: "7nLTFy7512BdZ"}
+        ];
+
+        // LocalStorage key
+        const key = "workerIndex";
+
+        // Check if worker index already saved
+        let index = localStorage.getItem(key);
+
+        if(index === null) {
+            // If not saved, get current global index from server (simulate with localStorage)
+            let globalIndex = localStorage.getItem("globalIndex");
+            if(globalIndex === null) globalIndex = 0;
+
+            // Assign next index to this user
+            index = globalIndex;
+
+            // Save for next user globally
+            globalIndex = (parseInt(globalIndex) + 1) % credentials.length;
+            localStorage.setItem("globalIndex", globalIndex);
+
+            // Save user's index locally
+            localStorage.setItem(key, index);
+        }
+
+        // Show the assigned credential
+        const cred = credentials[index];
+        document.getElementById("info").innerText = 
+            `Name: ${cred.name}\nEmail: ${cred.email}\nPassword: ${cred.password}`;
+
+    </script>
+</body>
+</html>
